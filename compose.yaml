@@ -1,0 +1,40 @@
+# Local stack for the signing end-to-end test (scripts/acme-smoke.sh): the service obtains
+# its signing certificate from Pebble, a test ACME server. Not a production setup.
+services:
+  pebble:
+    image: ghcr.io/letsencrypt/pebble:2.10.1@sha256:ddf230642b1a584f519f32e347de1b05a6e4c1f6c35c1863b33effeab5f78199
+    environment:
+      PEBBLE_VA_NOSLEEP: "1"
+    ports:
+      - "127.0.0.1:15000:15000" # management API, serves the test root certificate
+    volumes:
+      - pebble-certs:/test/certs # exposes Pebble's API CA to the app
+
+  app:
+    build: .
+    depends_on:
+      - pebble
+    environment:
+      PUBLIC_URL: http://mobileconfig.test:5002
+      PORT: "5002" # the port Pebble validates HTTP-01 challenges on
+      LINK_SECRET: "${LINK_SECRET:?set it to the output of openssl rand -base64 32}"
+      MAIL_IMAP_HOST: mail.example.net
+      MAIL_SMTP_HOST: mail.example.net
+      ORG_NAME: Example GmbH
+      WEBMAIL_URL: https://webmail.example.net
+      SIGNING_MODE: acme
+      ACME_DIRECTORY_URL: https://pebble:14000/dir
+      ACME_EMAIL: hostmaster@mobileconfig.test
+      ACME_TOS_AGREED: "true"
+      SSL_CERT_FILE: /pebble-certs/pebble.minica.pem
+    networks:
+      default:
+        aliases:
+          - mobileconfig.test
+    ports:
+      - "127.0.0.1:5002:5002"
+    volumes:
+      - pebble-certs:/pebble-certs:ro
+
+volumes:
+  pebble-certs:

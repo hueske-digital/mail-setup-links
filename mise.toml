@@ -1,0 +1,16 @@
+[tools]
+go = "1.27.2"
+golangci-lint = "2.14.0"
+
+[tasks.lint]
+run = ["test -z \"$(gofmt -l .)\"", "golangci-lint run"]
+
+[tasks.build]
+run = "go build -o dist/mail-setup-links ."
+
+[tasks.test]
+run = "go test ./..."
+
+[tasks."test:acme"]
+description = "End-to-end test against a local ACME server (Pebble) in containers"
+run = "scripts/acme-smoke.sh"

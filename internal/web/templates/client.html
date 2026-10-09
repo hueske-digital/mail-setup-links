@@ -1,0 +1,42 @@
+{{define "title"}}{{.HeadingPrefix}} {{.Name}}{{end}}
+{{define "content"}}
+<div class="intro">
+<a class="back" href="{{.BackPath}}">
+  <svg class="icon" aria-hidden="true"><use href="#icon-back" /></svg>
+  Anderes Gerät oder Programm
+</a>
+<h1>{{.HeadingPrefix}} <em>{{.Name}}</em></h1>
+<p class="lead">So richtest du <strong class="address">{{.Email}}</strong> ein.</p>
+</div>
+<div class="body">
+<ol class="steps panel" role="list">
+  {{range .Steps}}
+  <li>
+    <h2>{{.Title}}</h2>
+    {{if .Text}}<p>{{.Text}}</p>{{end}}
+    {{if .Download}}
+    <p>
+      <a class="button" href="{{$.ProfilePath}}">
+        <svg class="icon" aria-hidden="true"><use href="#icon-download" /></svg>
+        Profil laden
+      </a>
+    </p>
+    {{end}}
+    {{if .Values}}
+    <dl class="values">
+      {{range .Values}}
+      <div{{if .Copy}} class="is-wide"{{end}}>
+        <dt>{{.Label}}</dt>
+        <dd>
+          <span>{{.Value}}</span>
+          {{if .Copy}}<button type="button" class="copy" data-copy="{{.Value}}" aria-label="{{.Label}} kopieren" hidden>Kopieren</button>{{end}}
+        </dd>
+      </div>
+      {{end}}
+    </dl>
+    {{end}}
+  </li>
+  {{end}}
+</ol>
+</div>
+{{end}}
