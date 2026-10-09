@@ -79,6 +79,17 @@ PUBLIC_URL=http://localhost:3000 LINK_SECRET="$(openssl rand -base64 32)" \
 test ACME server, with `compose.yaml`. It creates a link, waits for the certificate, downloads
 the profile and verifies its signature against Pebble's root certificate with OpenSSL.
 
+## CI and image
+
+- `.github/workflows/ci.yml` runs formatting check, linter, build, tests and the end-to-end
+  signing test on pull requests and on `main`.
+- `.github/workflows/docker.yml` builds the image for `linux/amd64` and `linux/arm64` in
+  parallel on native runners. Pull requests only build. Pushes to `main` and tags `v*`
+  publish a multi-arch image to `ghcr.io/hueske-digital/mail-setup-links` (`latest` on
+  `main`, `sha-<commit>`, and the version for tags).
+- `renovate.json` proposes updates for Go modules, pinned actions and image digests after a
+  seven-day quarantine, without automerge.
+
 ## Design and fonts
 
 The pages use the logo, colours, type scale and components of hueske.digital. The embedded fonts
