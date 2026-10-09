@@ -457,23 +457,28 @@ a:focus-visible {
   }
 }
 
+/* Short values share a row, each as wide as its content needs and growing into what is left:
+   a long label ("Verschlüsselungsmethode") takes its room from the port beside it, and values
+   that do not fit side by side get a row each. */
 .values {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin: 12px 0 16px;
 }
 
 .values > div {
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  max-width: 100%;
   padding: 10px 16px 12px;
   border-radius: var(--border-radius-medium);
   background-color: var(--color-background-interactive-hover);
 }
 
 /* Values that are typed or pasted get the full width and a copy button. */
-.values > .is-wide,
-.values > :only-child {
-  grid-column: 1 / -1;
+.values > .is-wide {
+  flex-basis: 100%;
 }
 
 .values dt {
@@ -482,6 +487,8 @@ a:focus-visible {
   letter-spacing: 0.04em;
   line-height: 1.6;
   text-transform: uppercase;
+  /* A label wider than a whole row breaks instead of running out of its box. */
+  overflow-wrap: anywhere;
 }
 
 .values dd {
@@ -525,8 +532,8 @@ a:focus-visible {
 /* On phones there is one value per row; inside steps they use the full panel width, below
    the numeral. */
 @media (max-width: 479px) {
-  .values {
-    grid-template-columns: minmax(0, 1fr);
+  .values > div {
+    flex-basis: 100%;
   }
 
   .steps .values {
