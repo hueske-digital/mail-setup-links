@@ -81,5 +81,5 @@ the profile and verifies its signature against Pebble's root certificate with Op
 
 ## Design and fonts
 
-The pages use the colours, type scale and components of hueske.digital. The embedded fonts
+The pages use the logo, colours, type scale and components of hueske.digital. The embedded fonts
 Mona Sans and DM Serif Display are licensed under the SIL Open Font License 1.1.

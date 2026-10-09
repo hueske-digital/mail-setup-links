@@ -29,7 +29,7 @@ const (
 	pageRateLimit = 120
 	linkRateLimit = 10
 
-	contentSecurityPolicy = "default-src 'none'; style-src 'self'; font-src 'self'; script-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
+	contentSecurityPolicy = "default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
 )
 
 //go:embed templates/*.html
@@ -42,6 +42,7 @@ var staticFiles embed.FS
 var assetTypes = map[string]string{
 	"style.css":                         "text/css; charset=utf-8",
 	"app.js":                            "text/javascript; charset=utf-8",
+	"logo.svg":                          "image/svg+xml",
 	"fonts/Mona-Sans.woff2":             "font/woff2",
 	"fonts/DMSerifDisplay-Italic.woff2": "font/woff2",
 }

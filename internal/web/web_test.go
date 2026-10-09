@@ -440,6 +440,9 @@ func TestSecurityHeadersAndAssetCaching(t *testing.T) {
 		t.Errorf("asset Cache-Control = %q", got)
 	}
 	_, page := app.do(http.MethodGet, "/", nil)
+	if !regexp.MustCompile(`<img src="/assets/logo\.svg\?v=[0-9a-f]{12}" alt="Example GmbH" width="385" height="68"`).MatchString(page) {
+		t.Error("page shows no logo with dimensions and alternative text")
+	}
 	versioned := regexp.MustCompile(`/assets/style\.css\?v=[0-9a-f]{12}"`).FindString(page)
 	if versioned == "" {
 		t.Fatal("stylesheet URL carries no content hash")
