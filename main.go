@@ -30,7 +30,7 @@ func main() {
 	}
 }
 
-// healthcheck is the container health probe: the image has no shell or HTTP client.
+// healthcheck is the image's health probe (HEALTHCHECK of the Dockerfile).
 func healthcheck() int {
 	port := os.Getenv("PORT")
 	if port == "" {
