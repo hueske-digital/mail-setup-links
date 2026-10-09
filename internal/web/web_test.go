@@ -443,6 +443,11 @@ func TestSecurityHeadersAndAssetCaching(t *testing.T) {
 	if !regexp.MustCompile(`<img src="/assets/logo\.svg\?v=[0-9a-f]{12}" alt="Example GmbH" width="385" height="68"`).MatchString(page) {
 		t.Error("page shows no logo with dimensions and alternative text")
 	}
+	for _, icon := range []string{`rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png?v=`, `rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png?v=`} {
+		if !strings.Contains(page, icon) {
+			t.Errorf("page lacks %q", icon)
+		}
+	}
 	versioned := regexp.MustCompile(`/assets/style\.css\?v=[0-9a-f]{12}"`).FindString(page)
 	if versioned == "" {
 		t.Fatal("stylesheet URL carries no content hash")

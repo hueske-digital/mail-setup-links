@@ -43,6 +43,8 @@ var assetTypes = map[string]string{
 	"style.css":                         "text/css; charset=utf-8",
 	"app.js":                            "text/javascript; charset=utf-8",
 	"logo.svg":                          "image/svg+xml",
+	"favicon-32x32.png":                 "image/png",
+	"apple-touch-icon.png":              "image/png",
 	"fonts/Mona-Sans.woff2":             "font/woff2",
 	"fonts/DMSerifDisplay-Italic.woff2": "font/woff2",
 }
