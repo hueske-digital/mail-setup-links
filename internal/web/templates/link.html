@@ -1,9 +1,12 @@
 {{define "title"}}Einrichtungslink{{end}}
 {{define "content"}}
 <div class="intro">
-<p class="eyebrow">Für den Support</p>
-<h1>Der Link ist <em>fertig</em></h1>
-<p class="lead">Für <strong class="address">{{.Email}}</strong>, gültig bis {{.Expires}}.</p>
+<p class="eyebrow">E-Mail-Konto einrichten</p>
+<h1>Dein Link ist <em>fertig</em></h1>
+<p class="lead">
+  Richte <strong class="address">{{.Email}}</strong> jetzt ein oder gib den Link weiter. Er ist
+  gültig bis {{.Expires}}.
+</p>
 </div>
 <div class="body">
 <div class="panel">
@@ -17,7 +20,7 @@
     </div>
   </dl>
   <p class="actions">
-    <a class="button" href="{{.Link}}">Vorschau öffnen</a>
+    <a class="button" href="{{.Link}}">Jetzt einrichten</a>
     <a href="/">Weiteren Link erstellen</a>
   </p>
 </div>
