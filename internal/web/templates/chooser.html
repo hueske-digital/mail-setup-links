@@ -1,0 +1,29 @@
+{{define "title"}}E-Mail-Konto einrichten{{end}}
+{{define "content"}}
+<div class="intro">
+<p class="eyebrow">E-Mail-Konto einrichten</p>
+<h1>Wo möchtest du deine <em>E-Mails</em> lesen?</h1>
+<p class="lead">
+  Wähle dein Gerät oder Programm. Wir führen dich Schritt für Schritt durch die
+  Einrichtung von <strong class="address">{{.Account.Email}}</strong>.
+</p>
+<p class="note">Dein Passwort ist aus Sicherheitsgründen nicht Teil dieses Links – halte es bitte bereit.</p>
+</div>
+<div class="body">
+<ul class="tiles" role="list">
+  {{range .Tiles}}
+  <li data-client="{{.Slug}}"{{if .Recommended}} class="is-recommended"{{end}}>
+    <a class="tile" href="{{.Href}}"{{if .External}} rel="noopener noreferrer"{{end}}>
+      <svg class="icon" aria-hidden="true"><use href="#icon-{{.Icon}}" /></svg>
+      <span class="tile-text">
+        {{if .Recommended}}<span class="badge">Passt zu diesem Gerät</span>{{end}}
+        <span class="tile-name">{{.Name}}</span>
+        <span class="tile-summary">{{.Summary}}</span>
+      </span>
+      <svg class="icon arrow" aria-hidden="true"><use href="#icon-arrow" /></svg>
+    </a>
+  </li>
+  {{end}}
+</ul>
+</div>
+{{end}}

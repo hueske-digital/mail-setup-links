@@ -1,0 +1,627 @@
+@font-face {
+  font-display: swap;
+  font-family: "Mona Sans";
+  font-style: normal;
+  font-weight: 200 800;
+  src: url("/assets/fonts/Mona-Sans.woff2") format("woff2");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "DM Serif Display Italic";
+  font-style: italic;
+  font-weight: 400;
+  src: url("/assets/fonts/DMSerifDisplay-Italic.woff2") format("woff2");
+}
+
+/* Tokens of the hueske.digital theme. The error colour is the only addition. */
+:root {
+  color-scheme: light;
+  --color-text-default: #414f62;
+  --color-text-highlight: #0a1829;
+  --color-text-subdue: #788ba5;
+  --color-text-inverted: #fff;
+  --color-text-brand: #2439f5;
+  --color-text-brand-dark: #0a1fdb;
+  --color-text-error: #b3261e;
+  --color-surface-default: #fff;
+  --color-background-gradient: linear-gradient(135deg, #d8e9ff, #fafcff 40%, #fafcff 60%, #d8e9ff);
+  --color-background-brand: #2439f5;
+  --color-background-brand-dark: #0c24f7;
+  --color-background-secondary: #0a1829;
+  --color-background-interactive-hover: #f7f8fd;
+  --color-border-default: #dce6f0;
+  --color-border-brand: #2439f5;
+  --border-radius-default: 8px;
+  --border-radius-medium: 6px;
+  --container-padding: clamp(20px, 4vw, 48px);
+  --ease: cubic-bezier(0.5, 0, 0, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-border-brand);
+  outline-offset: 2px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background: #fafcff var(--color-background-gradient) fixed;
+  color: var(--color-text-default);
+  font-family: "Mona Sans", sans-serif;
+  font-size: clamp(16px, 2.5vw, 17px);
+  font-weight: 460;
+  line-height: 1.7;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.brand,
+main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.brand {
+  padding-top: 24px;
+}
+
+.brand p {
+  margin: 0;
+  color: var(--color-text-highlight);
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+main {
+  display: grid;
+  gap: 32px;
+  padding-top: clamp(32px, 7vw, 72px);
+  padding-bottom: clamp(48px, 8vw, 96px);
+}
+
+/* Tablet keeps one column but limits the measure; desktop puts intro and content side by side. */
+.intro,
+.body {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+@media (min-width: 960px) {
+  main {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 80px;
+    align-items: start;
+    /* Short pages sit in the middle of the viewport instead of hanging at the top. */
+    margin-block: auto;
+  }
+
+  .intro {
+    position: sticky;
+    top: 48px;
+  }
+
+  .intro:only-child {
+    grid-column: 1 / -1;
+    position: static;
+  }
+}
+
+/* --- type --- */
+
+h1,
+h2,
+label,
+strong,
+dd {
+  color: var(--color-text-highlight);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--color-text-brand);
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 20px;
+  font-size: clamp(32px, 6vw, 46px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+h1 em {
+  color: var(--color-text-brand);
+  font-family: "DM Serif Display Italic", serif;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin: 0 0 4px;
+  font-size: clamp(18px, 3vw, 22px);
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+p {
+  margin: 0 0 16px;
+}
+
+.lead {
+  font-size: clamp(17px, 2.8vw, 19px);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.address {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.note {
+  margin: 24px 0 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--color-border-brand);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-text-brand);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--color-text-brand-dark);
+  text-decoration: underline;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 550;
+}
+
+.back .icon {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s var(--ease);
+}
+
+.back:hover .icon {
+  transform: translateX(-4px);
+}
+
+/* --- buttons --- */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 1000px;
+  background-color: var(--color-background-brand);
+  color: var(--color-text-inverted);
+  font: inherit;
+  font-size: clamp(17px, 3vw, 18px);
+  font-weight: 500;
+  line-height: 1.3;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease);
+}
+
+.button:hover,
+.button:focus-visible {
+  background-color: var(--color-background-brand-dark);
+  color: var(--color-text-inverted);
+  text-decoration: none;
+}
+
+.button .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  margin: 24px 0 0;
+}
+
+/* --- chooser tiles --- */
+
+.tiles {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+  min-height: 88px;
+  padding: 16px 20px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-surface-default);
+  color: var(--color-text-default);
+  transition:
+    border-color 0.3s var(--ease),
+    background-color 0.3s var(--ease);
+}
+
+.tile:hover,
+.tile:focus-visible {
+  border-color: var(--color-border-brand);
+  background-color: var(--color-background-interactive-hover);
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
+.tile > .icon:first-child {
+  width: 28px;
+  height: 28px;
+  color: var(--color-text-brand);
+}
+
+.tile-text {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.tile-name {
+  color: var(--color-text-highlight);
+  font-size: clamp(18px, 3vw, 20px);
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.tile-summary {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.tile .arrow {
+  color: var(--color-text-highlight);
+  transition: transform 0.3s var(--ease);
+}
+
+.tile:hover .arrow,
+.tile:focus-visible .arrow {
+  transform: translateX(4px);
+}
+
+.badge {
+  justify-self: start;
+  margin-bottom: 6px;
+  padding: 2px 10px;
+  border-radius: 1000px;
+  background-color: var(--color-background-brand);
+  color: var(--color-text-inverted);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* The tile matching the visitor's device is the inverted, full-width one. */
+.is-recommended .tile {
+  min-height: 120px;
+  padding: 24px;
+  border-color: var(--color-background-secondary);
+  background-color: var(--color-background-secondary);
+  color: #c9d6e6;
+}
+
+.is-recommended .tile:hover,
+.is-recommended .tile:focus-visible {
+  border-color: var(--color-background-secondary);
+  background-color: #12243a;
+  color: #c9d6e6;
+}
+
+.is-recommended .tile-name {
+  color: var(--color-text-inverted);
+  font-size: clamp(20px, 3.5vw, 26px);
+}
+
+.is-recommended .tile > .icon:first-child {
+  width: 36px;
+  height: 36px;
+  color: var(--color-text-inverted);
+}
+
+.is-recommended .arrow {
+  color: var(--color-text-inverted);
+}
+
+/* --- panel, steps, values --- */
+
+.panel {
+  padding: clamp(20px, 4vw, 40px);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--border-radius-default);
+  background-color: var(--color-surface-default);
+}
+
+.steps {
+  margin: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps > li {
+  position: relative;
+  padding: 0 0 32px 60px;
+  counter-increment: step;
+}
+
+.steps > li:last-child {
+  padding-bottom: 0;
+}
+
+.steps > li > :last-child {
+  margin-bottom: 0;
+}
+
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 40px;
+  color: var(--color-text-brand);
+  font-family: "DM Serif Display Italic", serif;
+  font-size: 40px;
+  font-style: italic;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.steps > li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 48px;
+  bottom: 8px;
+  left: 20px;
+  width: 1px;
+  background-color: var(--color-border-default);
+}
+
+@media (max-width: 479px) {
+  .steps > li {
+    padding-left: 44px;
+  }
+
+  .steps > li::before {
+    width: 28px;
+    font-size: 32px;
+    top: -4px;
+  }
+
+  .steps > li:not(:last-child)::after {
+    display: none;
+  }
+}
+
+.values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 16px;
+}
+
+.values > div {
+  padding: 10px 16px 12px;
+  border-radius: var(--border-radius-medium);
+  background-color: var(--color-background-interactive-hover);
+}
+
+/* Values that are typed or pasted get the full width and a copy button. */
+.values > .is-wide,
+.values > :only-child {
+  grid-column: 1 / -1;
+}
+
+.values dt {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.values dd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 32px;
+  margin: 0;
+  font-size: clamp(16px, 2.6vw, 18px);
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.values dd span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.copy {
+  flex: none;
+  min-width: 5.5em;
+  min-height: 32px;
+  padding: 4px 12px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 1000px;
+  background-color: var(--color-surface-default);
+  color: var(--color-text-highlight);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease);
+}
+
+.copy:hover,
+.copy:focus-visible {
+  border-color: var(--color-border-brand);
+}
+
+/* On phones there is one value per row; inside steps they use the full panel width, below
+   the numeral. */
+@media (max-width: 479px) {
+  .values {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .steps .values {
+    margin-left: -44px;
+  }
+}
+
+/* --- form --- */
+
+.field {
+  margin-bottom: 24px;
+}
+
+label {
+  display: block;
+  font-weight: 700;
+}
+
+.hint,
+.error {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.error {
+  margin-top: 4px;
+  color: var(--color-text-error);
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px 16px;
+  /* The subdued text colour: the default border is too faint for a control boundary. */
+  border: 1px solid var(--color-text-subdue);
+  border-radius: var(--border-radius-default);
+  background: var(--color-surface-default);
+  color: var(--color-text-highlight);
+  font: inherit;
+  line-height: 1.3;
+}
+
+input[aria-invalid="true"] {
+  border-color: var(--color-text-error);
+}
+
+/* --- copy confirmation --- */
+
+.status {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  max-width: calc(100vw - 32px);
+  margin: 0;
+  padding: 10px 20px;
+  border-radius: 1000px;
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-inverted);
+  font-size: 15px;
+  font-weight: 550;
+  transform: translateX(-50%);
+}
+
+.status:empty {
+  display: none;
+}
+
+/* --- motion --- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .intro > *,
+  .tiles > li,
+  .body > .panel {
+    animation: rise 0.6s var(--ease) backwards;
+  }
+
+  .intro > :nth-child(2) { animation-delay: 0.05s; }
+  .intro > :nth-child(3) { animation-delay: 0.1s; }
+  .intro > :nth-child(4) { animation-delay: 0.15s; }
+  .body > .panel { animation-delay: 0.15s; }
+  .tiles > :nth-child(1) { animation-delay: 0.15s; }
+  .tiles > :nth-child(2) { animation-delay: 0.2s; }
+  .tiles > :nth-child(3) { animation-delay: 0.25s; }
+  .tiles > :nth-child(4) { animation-delay: 0.3s; }
+  .tiles > :nth-child(5) { animation-delay: 0.35s; }
+  .tiles > :nth-child(6) { animation-delay: 0.4s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}

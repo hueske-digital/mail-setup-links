@@ -1,0 +1,25 @@
+{{define "title"}}Einrichtungslink{{end}}
+{{define "content"}}
+<div class="intro">
+<p class="eyebrow">Für den Support</p>
+<h1>Der Link ist <em>fertig</em></h1>
+<p class="lead">Für <strong class="address">{{.Email}}</strong>, gültig bis {{.Expires}}.</p>
+</div>
+<div class="body">
+<div class="panel">
+  <dl class="values">
+    <div class="is-wide">
+      <dt>Einrichtungslink</dt>
+      <dd>
+        <span>{{.Link}}</span>
+        <button type="button" class="copy" data-copy="{{.Link}}" aria-label="Einrichtungslink kopieren" hidden>Kopieren</button>
+      </dd>
+    </div>
+  </dl>
+  <p class="actions">
+    <a class="button" href="{{.Link}}">Vorschau öffnen</a>
+    <a href="/">Weiteren Link erstellen</a>
+  </p>
+</div>
+</div>
+{{end}}

@@ -1,0 +1,38 @@
+{{define "title"}}Einrichtungslink erstellen{{end}}
+{{define "content"}}
+<div class="intro">
+<p class="eyebrow">Für den Support</p>
+<h1>Einrichtungslink <em>erstellen</em></h1>
+<p class="lead">
+  Der Link führt Kundinnen und Kunden durch die Einrichtung ihres Postfachs – per Profil
+  auf Apple-Geräten, Schritt für Schritt in Outlook, Thunderbird und auf Android.
+</p>
+<p class="note">Das Passwort ist nie Teil des Links. Es wird bei der Einrichtung auf dem Gerät eingegeben.</p>
+</div>
+<div class="body">
+<form class="panel" method="post" action="/links" novalidate>
+  {{range .Fields}}
+  <div class="field">
+    <label for="{{.Name}}">{{.Label}}</label>
+    {{if .Hint}}<p class="hint" id="{{.Name}}-hint">{{.Hint}}</p>{{end}}
+    <input
+      id="{{.Name}}"
+      name="{{.Name}}"
+      type="{{.Type}}"
+      value="{{.Value}}"
+      autocomplete="off"
+      spellcheck="false"
+      {{if .Required}}required{{end}}
+      {{if .DescribedBy}}aria-describedby="{{.DescribedBy}}"{{end}}
+      {{if .Error}}aria-invalid="true"{{end}}
+    />
+    {{if .Error}}<p class="error" id="{{.Name}}-error">{{.Error}}</p>{{end}}
+  </div>
+  {{end}}
+  <button type="submit" class="button">
+    Link erstellen
+    <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg>
+  </button>
+</form>
+</div>
+{{end}}
